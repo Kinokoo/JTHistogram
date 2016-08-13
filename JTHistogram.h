@@ -32,10 +32,27 @@
 
 /**
  
- Generates the histogram
+ Generates the histogram data
  
  */
 
 - (NSDictionary*) histogram;
-    
+
+/**
+ 
+ Generates relative histogram, showing the distribution of numbers in percents,
+ relative to other number distribution.
+ For example, if array is [2, 4, 2] and minimum and maximum are not set (are default)
+ The output will be {0:0, 1:0, 2:100, 3:0, 4:50}
+ 
+ */
+- (NSDictionary*) relativeHistogram;
+
+/**
+ 
+ Returns maximum absolute value of the histogram.
+ 
+ */
+- (NSInteger) maxAbsoluteValue;
+
 @end

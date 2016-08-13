@@ -53,4 +53,31 @@
     return histogram;
 }
 
+- (NSInteger) maxAbsoluteValue {
+    NSCountedSet *const countedData  = [NSCountedSet setWithArray: self.inputData];
+    NSInteger           maximumValue = 0;
+    
+    for (NSInteger i = 0; i <= [countedData count]; ++i) {
+        if (([countedData countForObject:@(i)]) > maximumValue) {
+            maximumValue = [countedData countForObject:@(i)];
+        }
+    }
+    
+    return maximumValue;
+}
+
+- (NSDictionary*) relativeHistogram {
+    NSDictionary        *absoluteHistogram = [self histogram];
+    NSMutableDictionary *relativeHistogram = [NSMutableDictionary dictionary];
+    NSInteger const      maximumValue      = [self maxAbsoluteValue];
+    
+    [absoluteHistogram enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, NSNumber * _Nonnull currentItem, BOOL * _Nonnull stop) {
+        Float32 const absoluteValue = [currentItem floatValue];
+        Float32 const relativeValue = absoluteValue / (maximumValue * 0.01f);
+        relativeHistogram[key] = @(relativeValue);
+    }];
+    
+    return relativeHistogram;
+}
+
 @end
